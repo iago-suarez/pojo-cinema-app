@@ -10,8 +10,8 @@ Se requiere tener correctamente instalados:
 * mysql (correctamente configurado)
 
 Para más información de como configurar mysql ver los ficheros
-* instalacion_previa_linux.txt
-* instalacion_previa_windows.txt
+* [instalacion_previa_unix.txt](https://github.com/iago-suarez/pojo-cinema-app/blob/master/instalacion_previa_unix.txt)
+* [instalacion_previa_windows.txt](https://github.com/iago-suarez/pojo-cinema-app/blob/master/instalacion_previa_windows.txt)
 
 # Descarga
 
@@ -23,5 +23,10 @@ Para descargar el código fuente de la aplicación:
 
 Para compilarlo y arrancar el servidor de aplicaciones Jetty:
 
+	cd pojo-cinema-app
 	mvn install sql:execute
 	mvn jetty:run
+
+Y podremos acceder a la web desde nuestro navegador con la url:
+
+	http://localhost:9090/pojo-cinema-app/
