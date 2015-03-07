@@ -9,21 +9,39 @@ import es.udc.pojo.model.catalogoservice.CatalogoService;
 import es.udc.pojo.model.sesion.Sesion;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class SesionEncoder.
+ */
 public class SesionEncoder implements ValueEncoder<Sesion> {
 
+    /** The catalogo service. */
     CatalogoService  catalogoService;
 
+    /** The sdf. */
     SimpleDateFormat sdf           = new SimpleDateFormat(
                                            "EEE:MMM:dd:HH:mm:ss:z:yyyy");
 
+    /** The null string. */
     private String   nullString    = "null";
 
+    /** The divider string. */
     private String   dividerString = "-";
 
+    /**
+     * Instantiates a new sesion encoder.
+     *
+     * @param sesionFinderService
+     *            the sesion finder service
+     */
     public SesionEncoder(CatalogoService sesionFinderService) {
         this.catalogoService = sesionFinderService;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.apache.tapestry5.ValueEncoder#toClient(java.lang.Object)
+     */
     @Override
     public String toClient(Sesion value) {
         String cadena = "";
@@ -52,6 +70,11 @@ public class SesionEncoder implements ValueEncoder<Sesion> {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.apache.tapestry5.ValueEncoder#toValue(java.lang.String)
+     */
     @Override
     public Sesion toValue(String entrada) {
 

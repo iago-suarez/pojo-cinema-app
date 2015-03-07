@@ -9,8 +9,17 @@ import es.udc.pojo.model.pelicula.PeliculaDao;
 import es.udc.pojo.model.pelicula.PeliculaDaoHibernate;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class PeliculaDaoExperiments.
+ */
 public class PeliculaDaoExperiments {
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     */
     public static void main(String[] args) {
 
         PeliculaDaoHibernate peliculaDaoHibernate = new PeliculaDaoHibernate();

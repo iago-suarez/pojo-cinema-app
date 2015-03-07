@@ -8,10 +8,20 @@ import org.springframework.stereotype.Repository;
 import es.udc.pojo.modelutil.dao.GenericDaoHibernate;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class PeliculaDaoHibernate.
+ */
 @Repository("peliculaDao")
 public class PeliculaDaoHibernate extends GenericDaoHibernate<Pelicula, Long>
         implements PeliculaDao {
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.pelicula.PeliculaDao#findPeliculasByCine(java.lang.
+     * Long, java.util.Calendar)
+     */
     @SuppressWarnings("unchecked")
     @Override
     public List<Pelicula> findPeliculasByCine(Long idCine, Calendar fecha)
@@ -26,6 +36,13 @@ public class PeliculaDaoHibernate extends GenericDaoHibernate<Pelicula, Long>
                 .setParameter("fecha", fecha.getTime()).list();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.pelicula.PeliculaDao#findPeliculasActivasADia(java.
+     * util.Calendar)
+     */
     @SuppressWarnings("unchecked")
     @Override
     public List<Pelicula> findPeliculasActivasADia(Calendar dia) {

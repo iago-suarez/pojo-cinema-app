@@ -13,10 +13,17 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * The Class escenarioCompra.
+ */
 public class escenarioCompra {
 
+    /** The driver. */
     private WebDriver driver;
 
+    /**
+     * Open browser.
+     */
     @Before
     public void openBrowser() {
         driver = new FirefoxDriver();
@@ -25,6 +32,9 @@ public class escenarioCompra {
 
     }
 
+    /**
+     * Close browser.
+     */
     @After
     public void closeBrowser() {
         driver.close();
@@ -33,9 +43,10 @@ public class escenarioCompra {
 
     /**
      * Precondicion: Debe existir una sesion en el cine para que el test
-     * funcione
-     * 
+     * funcione.
+     *
      * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void comprarEntradas() throws InterruptedException {

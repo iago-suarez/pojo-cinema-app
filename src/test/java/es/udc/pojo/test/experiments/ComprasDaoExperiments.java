@@ -32,8 +32,17 @@ import es.udc.pojo.model.userprofile.UserProfileDaoHibernate;
 import es.udc.pojo.model.userservice.util.PasswordEncrypter;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class ComprasDaoExperiments.
+ */
 public class ComprasDaoExperiments {
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     */
     public static void main(String[] args) {
 
         CompraDaoHibernate compraDaoHibernate = new CompraDaoHibernate();

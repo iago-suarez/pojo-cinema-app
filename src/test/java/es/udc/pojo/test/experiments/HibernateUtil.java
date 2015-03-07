@@ -5,7 +5,12 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
+/**
+ * The Class HibernateUtil.
+ */
 public class HibernateUtil {
+
+    /** The Constant sessionFactory. */
     private static final SessionFactory sessionFactory;
 
     static {
@@ -26,10 +31,18 @@ public class HibernateUtil {
         }
     }
 
+    /**
+     * Gets the session factory.
+     *
+     * @return the session factory
+     */
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
+    /**
+     * Shutdown.
+     */
     public static void shutdown() {
         // Close caches and connection pools
         getSessionFactory().close();

@@ -44,107 +44,146 @@ import es.udc.pojo.web.encoders.CineEncoder;
 import es.udc.pojo.web.services.AuthenticationPolicy;
 import es.udc.pojo.web.services.AuthenticationPolicyType;
 
+/**
+ * The Class ConfeccionarCartelera.
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.ADMINISTRADOR)
 public class ConfeccionarCartelera {
 
     // Definimos estas constantes para manejar los posibles botones
     // del formulario:
+    /** The Constant ADD_ACTION. */
     private static final int       ADD_ACTION      = 1;
+
+    /** The Constant FINISH_ACTION. */
     private static final int       FINISH_ACTION   = 2;
 
+    /** The id cine. */
     private Long                   idCine;
 
+    /** The cine. */
     @Property
     private Cine                   cine;
 
+    /** The date in millis. */
     private long                   dateInMillis;
+
+    /** The date. */
     private Date                   date;
 
+    /** The sesions. */
     @Persist(PersistenceConstants.SESSION)
     private List<Sesion>           sesions;
 
+    /** The sesion. */
     @Property
     private Sesion                 sesion;
 
+    /** The catalogo service. */
     @Inject
     private CatalogoService        catalogoService;
 
+    /** The salas. */
     private List<Sala>             salas;
 
+    /** The peliculas. */
     private List<Pelicula>         peliculas;
 
+    /** The locale. */
     @Inject
     private Locale                 locale;
 
+    /** The message format. */
     @Property
     private MessageFormat          messageFormat;
 
+    /** The table index. */
     @Property
     private int                    tableIndex;
 
-    /*************************** FORM *****************************/
+    /** ************************* FORM ****************************. */
 
     @Inject
     private Request                request;
 
     // Nos permite recargar más de una zona a la vez
+    /** The ajax response renderer. */
     @Inject
     private AjaxResponseRenderer   ajaxResponseRenderer;
 
+    /** The form zone. */
     @InjectComponent
     private Zone                   formZone;
 
+    /** The n sala. */
     @Property
     private String                 nSala;
 
+    /** The sala. */
     @Property
     private Sala                   sala;
 
+    /** The select sala. */
     @Property
     private Sala                   selectSala;
 
+    /** The sala encoder. */
     @Property
     private SalaEncoder            salaEncoder     = new SalaEncoder();
 
+    /** The salas select model. */
     @Property
     private SelectModel            salasSelectModel;
 
+    /** The pelicula. */
     @Property
     private Pelicula               pelicula;
 
+    /** The select pelicula. */
     @Property
     private Pelicula               selectPelicula;
 
+    /** The pelicula encoder. */
     @Property
     private PeliculaEncoder        peliculaEncoder = new PeliculaEncoder();
 
+    /** The peliculas select model. */
     @Property
     private SelectModel            peliculasSelectModel;
 
+    /** The select model factory. */
     @Inject
     SelectModelFactory             selectModelFactory;
 
+    /** The model zone tabla. */
     @InjectComponent
     private Zone                   modelZoneTabla;
 
+    /** The hora. */
     @Property
     private String                 hora;
 
+    /** The hora text field. */
     @Component(id = "hora")
     private TextField              horaTextField;
 
+    /** The min. */
     @Property
     private String                 min;
 
+    /** The min text field. */
     @Component(id = "min")
     private TextField              minTextField;
 
+    /** The sesion form. */
     @Component
     private Form                   sesionForm;
 
+    /** The cartelera confeccionada. */
     @InjectPage
     private CarteleraConfeccionada carteleraConfeccionada;
 
+    /** The messages. */
     @Inject
     private Messages               messages;
 
@@ -152,9 +191,17 @@ public class ConfeccionarCartelera {
      * define la accionon que se está llevando a cabo en el formulario de
      * creacion de sesiones, a saber: ADD o FININISH
      */
+    /** The actual action. */
     private int                    actualAction;
 
-    /************************* CODE ***********************/
+    /**
+     * *********************** CODE **********************.
+     *
+     * @param idCine
+     *            the id cine
+     * @param dateInMillis
+     *            the date in millis
+     */
 
     // Cargamos el cine, y las peliculas actuales
     void onActivate(Long idCine, long dateInMillis) {
@@ -174,6 +221,11 @@ public class ConfeccionarCartelera {
 
     }
 
+    /**
+     * On passivate.
+     *
+     * @return the object[]
+     */
     Object[] onPassivate() {
 
         return new Object[] { idCine, dateInMillis };
@@ -181,16 +233,33 @@ public class ConfeccionarCartelera {
 
     // FORM HANDLERS
 
+    /**
+     * On value changed from select sala.
+     *
+     * @param selectSala
+     *            the select sala
+     * @return the object
+     */
     Object onValueChangedFromSelectSala(Sala selectSala) {
         this.selectSala = selectSala;
         return null;
     }
 
+    /**
+     * On value changed from select pelicula.
+     *
+     * @param selectPelicula
+     *            the select pelicula
+     * @return the object
+     */
     Object onValueChangedFromSelectPelicula(Pelicula selectPelicula) {
         this.selectPelicula = selectPelicula;
         return null;
     }
 
+    /**
+     * On validate from sesion form.
+     */
     void onValidateFromSesionForm() {
         Sesion newSesion = null;
         System.out.println("--> Validamosss! ");
@@ -244,11 +313,17 @@ public class ConfeccionarCartelera {
         }
     }
 
+    /**
+     * Save as add action.
+     */
     @OnEvent(component = "anadir", value = EventConstants.SELECTED)
     void saveAsAddAction() {
         actualAction = ADD_ACTION;
     }
 
+    /**
+     * Save as finish action.
+     */
     @OnEvent(component = "finish", value = EventConstants.SELECTED)
     void saveAsFinishAction() {
         actualAction = FINISH_ACTION;
@@ -304,15 +379,18 @@ public class ConfeccionarCartelera {
         }
     }
 
+    /**
+     * On failure.
+     */
     void onFailure() {
         ajaxResponseRenderer.addRender(formZone);
     }
 
     /**
      * Crea una nueva sesion en base a los datos del formulario PreCND: Los
-     * datos del formulario han de ser válidos
-     * 
-     * @return
+     * datos del formulario han de ser válidos.
+     *
+     * @return the sesion
      */
     private Sesion createSesionFromForm() {
         Calendar c = Calendar.getInstance();
@@ -324,6 +402,13 @@ public class ConfeccionarCartelera {
 
     }
 
+    /**
+     * On action from eliminar.
+     *
+     * @param tableIndex
+     *            the table index
+     * @return the object
+     */
     Object onActionFromEliminar(int tableIndex) {
         sesions.remove(tableIndex);
         return modelZoneTabla.getBody();
@@ -331,10 +416,20 @@ public class ConfeccionarCartelera {
 
     // FORMATS
 
+    /**
+     * Gets the number format.
+     *
+     * @return the number format
+     */
     public Format getNumberFormat() {
         return NumberFormat.getInstance(locale);
     }
 
+    /**
+     * Gets the date format hour.
+     *
+     * @return the date format hour
+     */
     public Format getDateFormatHour() {
         SimpleDateFormat dateFormat = (SimpleDateFormat) DateFormat
                 .getDateInstance();
@@ -342,51 +437,109 @@ public class ConfeccionarCartelera {
         return dateFormat;
     }
 
+    /**
+     * Gets the date format long.
+     *
+     * @return the date format long
+     */
     public Format getDateFormatLong() {
         return DateFormat.getDateInstance(DateFormat.LONG, locale);
     }
 
+    /**
+     * Gets the date format short.
+     *
+     * @return the date format short
+     */
     public Format getDateFormatShort() {
         return DateFormat.getDateInstance(DateFormat.SHORT, locale);
     }
 
+    /**
+     * Gets the fomated date.
+     *
+     * @return the fomated date
+     */
     public String getFomatedDate() {
         DateFormat f = DateFormat.getDateInstance(DateFormat.SHORT, locale);
         return f.format(date);
     }
 
+    /**
+     * Gets the min date.
+     *
+     * @return the min date
+     */
     public Date getMinDate() {
         return Calendar.getInstance().getTime();
     }
 
     // PROPERTIES GETTERS & SETTERS
 
+    /**
+     * Gets the date in millis.
+     *
+     * @return the date in millis
+     */
     public long getDateInMillis() {
         return dateInMillis;
     }
 
+    /**
+     * Sets the date in millis.
+     *
+     * @param dateInMillis
+     *            the new date in millis
+     */
     public void setDateInMillis(long dateInMillis) {
         this.dateInMillis = dateInMillis;
     }
 
+    /**
+     * Gets the id cine.
+     *
+     * @return the id cine
+     */
     public Long getIdCine() {
         return cine.getIdCine();
     }
 
+    /**
+     * Sets the id cine.
+     *
+     * @param idCine
+     *            the new id cine
+     */
     public void setIdCine(Long idCine) {
         this.idCine = idCine;
     }
 
+    /**
+     * Gets the n sala.
+     *
+     * @return the n sala
+     */
     public String getnSala() {
 
         return nSala;
     }
 
+    /**
+     * Sets the n sala.
+     *
+     * @param aux
+     *            the new n sala
+     */
     public void setnSala(String aux) {
 
         this.nSala = aux;
     }
 
+    /**
+     * Gets the salas.
+     *
+     * @return the salas
+     */
     private List<Sala> getSalas() {
         if (this.cine == null) {
             try {
@@ -406,6 +559,11 @@ public class ConfeccionarCartelera {
         return salas;
     }
 
+    /**
+     * Gets the peliculas.
+     *
+     * @return the peliculas
+     */
     private List<Pelicula> getPeliculas() {
 
         if (peliculas == null) {
@@ -417,6 +575,11 @@ public class ConfeccionarCartelera {
         return peliculas;
     }
 
+    /**
+     * Gets the sesions.
+     *
+     * @return the sesions
+     */
     public List<Sesion> getSesions() {
 
         if (sesions == null) {
@@ -426,19 +589,37 @@ public class ConfeccionarCartelera {
         return sesions;
     }
 
+    /**
+     * Gets the cine encoder.
+     *
+     * @return the cine encoder
+     */
     public CineEncoder getCineEncoder() {
         return new CineEncoder(catalogoService);
     }
 
     // ENCODERS
 
+    /**
+     * The Class SalaEncoder.
+     */
     private class SalaEncoder implements ValueEncoder<Sala> {
 
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.apache.tapestry5.ValueEncoder#toClient(java.lang.Object)
+         */
         @Override
         public String toClient(Sala sala) {
             return String.valueOf(sala.getIdSala());
         }
 
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.apache.tapestry5.ValueEncoder#toValue(java.lang.String)
+         */
         @Override
         public Sala toValue(String nSala) {
             List<Sala> salas = getSalas();
@@ -452,13 +633,26 @@ public class ConfeccionarCartelera {
         }
     }
 
+    /**
+     * The Class PeliculaEncoder.
+     */
     private class PeliculaEncoder implements ValueEncoder<Pelicula> {
 
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.apache.tapestry5.ValueEncoder#toClient(java.lang.Object)
+         */
         @Override
         public String toClient(Pelicula pelicula) {
             return String.valueOf(pelicula.getTitulo());
         }
 
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.apache.tapestry5.ValueEncoder#toValue(java.lang.String)
+         */
         @Override
         public Pelicula toValue(String titulo) {
             List<Pelicula> peliculas = getPeliculas();

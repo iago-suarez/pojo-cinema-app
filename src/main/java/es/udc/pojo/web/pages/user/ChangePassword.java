@@ -17,33 +17,50 @@ import es.udc.pojo.web.services.AuthenticationPolicyType;
 import es.udc.pojo.web.util.CookiesManager;
 import es.udc.pojo.web.util.UserSession;
 
+/**
+ * The Class ChangePassword.
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.AUTHENTICATED_USERS)
 public class ChangePassword {
 
+    /** The old password. */
     @Property
     private String      oldPassword;
 
+    /** The new password. */
     @Property
     private String      newPassword;
 
+    /** The retype new password. */
     @Property
     private String      retypeNewPassword;
 
+    /** The user session. */
     @SessionState(create = false)
     private UserSession userSession;
 
+    /** The change password form. */
     @Component
     private Form        changePasswordForm;
 
+    /** The cookies. */
     @Inject
     private Cookies     cookies;
 
+    /** The messages. */
     @Inject
     private Messages    messages;
 
+    /** The user service. */
     @Inject
     private UserService userService;
 
+    /**
+     * On validate from change password form.
+     *
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     */
     void onValidateFromChangePasswordForm() throws InstanceNotFoundException {
 
         if (!changePasswordForm.isValid()) {
@@ -67,6 +84,11 @@ public class ChangePassword {
 
     }
 
+    /**
+     * On success.
+     *
+     * @return the object
+     */
     Object onSuccess() {
 
         CookiesManager.removeCookies(cookies);

@@ -12,13 +12,24 @@ import es.udc.pojo.model.util.IncorrectPasswordException;
 import es.udc.pojo.modelutil.exceptions.DuplicateInstanceException;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class UserServiceImpl.
+ */
 @Service("userService")
 @Transactional
 public class UserServiceImpl implements UserService {
 
+    /** The user profile dao. */
     @Autowired
     private UserProfileDao userProfileDao;
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.userservice.UserService#registerUser(java.lang.String,
+     * java.lang.String, es.udc.pojo.model.userservice.UserProfileDetails)
+     */
     public UserProfile registerUser(String loginName, String clearPassword,
             UserProfileDetails userProfileDetails)
             throws DuplicateInstanceException {
@@ -41,6 +52,12 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see es.udc.pojo.model.userservice.UserService#login(java.lang.String,
+     * java.lang.String, boolean)
+     */
     @Transactional(readOnly = true)
     public UserProfile login(String loginName, String password,
             boolean passwordIsEncrypted) throws InstanceNotFoundException,
@@ -63,6 +80,12 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.userservice.UserService#findUserProfile(java.lang.Long)
+     */
     @Transactional(readOnly = true)
     public UserProfile findUserProfile(Long userProfileId)
             throws InstanceNotFoundException {
@@ -70,6 +93,13 @@ public class UserServiceImpl implements UserService {
         return userProfileDao.find(userProfileId);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.userservice.UserService#updateUserProfileDetails(java
+     * .lang.Long, es.udc.pojo.model.userservice.UserProfileDetails)
+     */
     public void updateUserProfileDetails(Long userProfileId,
             UserProfileDetails userProfileDetails)
             throws InstanceNotFoundException {
@@ -81,6 +111,13 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.userservice.UserService#changePassword(java.lang.Long,
+     * java.lang.String, java.lang.String)
+     */
     public void changePassword(Long userProfileId, String oldClearPassword,
             String newClearPassword) throws IncorrectPasswordException,
             InstanceNotFoundException {

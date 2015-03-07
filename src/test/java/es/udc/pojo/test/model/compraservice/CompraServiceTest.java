@@ -43,32 +43,72 @@ import es.udc.pojo.model.util.TarjetaCaducadaException;
 import es.udc.pojo.modelutil.exceptions.DuplicateInstanceException;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class CompraServiceTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
         locations = { SPRING_CONFIG_FILE, SPRING_CONFIG_TEST_FILE })
 @Transactional
 public class CompraServiceTest {
 
+    /** The Constant NON_EXISTENT_COMPRA_ID. */
     private static final long NON_EXISTENT_COMPRA_ID = -1;
+
+    /** The user profile dao. */
     @Autowired
     private UserProfileDao    userProfileDao;
+
+    /** The provincia dao. */
     @Autowired
     private ProvinciaDao      provinciaDao;
+
+    /** The cine dao. */
     @Autowired
     private CineDao           cineDao;
+
+    /** The sala dao. */
     @Autowired
     private SalaDao           salaDao;
+
+    /** The sesion dao. */
     @Autowired
     private SesionDao         sesionDao;
+
+    /** The pelicula dao. */
     @Autowired
     private PeliculaDao       peliculaDao;
+
+    /** The compra dao. */
     @Autowired
     private CompraDao         compraDao;
+
+    /** The user service. */
     @Autowired
     private UserService       userService;
+
+    /** The compra service. */
     @Autowired
     private CompraService     compraService;
 
+    /**
+     * Test create compra and find compra.
+     *
+     * @throws DuplicateInstanceException
+     *             the duplicate instance exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     * @throws SesionLlenaException
+     *             the sesion llena exception
+     * @throws BadArgumentException
+     *             the bad argument exception
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws TarjetaCaducadaException
+     *             the tarjeta caducada exception
+     * @throws SesionPasadaException
+     *             the sesion pasada exception
+     */
     @Test
     public void testCreateCompraAndFindCompra()
             throws DuplicateInstanceException, InstanceNotFoundException,
@@ -124,12 +164,32 @@ public class CompraServiceTest {
 
     }
 
+    /**
+     * Test find not existent compra.
+     *
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     */
     @Test(expected = InstanceNotFoundException.class)
     public void testFindNotExistentCompra() throws InstanceNotFoundException {
 
         compraService.findCompra(new Long(34567));
     }
 
+    /**
+     * Test sesion llena.
+     *
+     * @throws SesionLlenaException
+     *             the sesion llena exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     * @throws BadArgumentException
+     *             the bad argument exception
+     * @throws TarjetaCaducadaException
+     *             the tarjeta caducada exception
+     * @throws SesionPasadaException
+     *             the sesion pasada exception
+     */
     @Test(expected = SesionLlenaException.class)
     public void testSesionLlena() throws SesionLlenaException,
             InstanceNotFoundException, BadArgumentException,
@@ -176,6 +236,24 @@ public class CompraServiceTest {
                 sesion.getIdSesion());
     }
 
+    /**
+     * Test create compra tarjeta caducada.
+     *
+     * @throws DuplicateInstanceException
+     *             the duplicate instance exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     * @throws SesionLlenaException
+     *             the sesion llena exception
+     * @throws BadArgumentException
+     *             the bad argument exception
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws TarjetaCaducadaException
+     *             the tarjeta caducada exception
+     * @throws SesionPasadaException
+     *             the sesion pasada exception
+     */
     @Test(expected = TarjetaCaducadaException.class)
     public void testCreateCompraTarjetaCaducada()
             throws DuplicateInstanceException, InstanceNotFoundException,
@@ -213,6 +291,9 @@ public class CompraServiceTest {
 
     }
 
+    /**
+     * Test find compras.
+     */
     @Test
     public void testFindCompras() {
 
@@ -318,6 +399,22 @@ public class CompraServiceTest {
 
     }
 
+    /**
+     * Entregar entradas.
+     *
+     * @throws CompraYaEntregadaException
+     *             the compra ya entregada exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     * @throws SesionLlenaException
+     *             the sesion llena exception
+     * @throws BadArgumentException
+     *             the bad argument exception
+     * @throws TarjetaCaducadaException
+     *             the tarjeta caducada exception
+     * @throws SesionPasadaException
+     *             the sesion pasada exception
+     */
     @Test
     public void entregarEntradas() throws CompraYaEntregadaException,
             InstanceNotFoundException, SesionLlenaException,
@@ -367,6 +464,22 @@ public class CompraServiceTest {
         // TODO La excepcion CompraYaEntregadaException
     }
 
+    /**
+     * Entregar entradas ya entregadas.
+     *
+     * @throws CompraYaEntregadaException
+     *             the compra ya entregada exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     * @throws SesionLlenaException
+     *             the sesion llena exception
+     * @throws BadArgumentException
+     *             the bad argument exception
+     * @throws TarjetaCaducadaException
+     *             the tarjeta caducada exception
+     * @throws SesionPasadaException
+     *             the sesion pasada exception
+     */
     @Test(expected = CompraYaEntregadaException.class)
     public void entregarEntradasYaEntregadas()
             throws CompraYaEntregadaException, InstanceNotFoundException,
@@ -418,6 +531,22 @@ public class CompraServiceTest {
 
     }
 
+    /**
+     * Entregar entradas instance not found.
+     *
+     * @throws CompraYaEntregadaException
+     *             the compra ya entregada exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     * @throws SesionLlenaException
+     *             the sesion llena exception
+     * @throws BadArgumentException
+     *             the bad argument exception
+     * @throws TarjetaCaducadaException
+     *             the tarjeta caducada exception
+     * @throws SesionPasadaException
+     *             the sesion pasada exception
+     */
     @Test(expected = InstanceNotFoundException.class)
     public void entregarEntradasInstanceNotFound()
             throws CompraYaEntregadaException, InstanceNotFoundException,
@@ -428,6 +557,18 @@ public class CompraServiceTest {
 
     }
 
+    /**
+     * Crear compra sesion pasada.
+     *
+     * @throws SesionPasadaException
+     *             the sesion pasada exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     * @throws SesionLlenaException
+     *             the sesion llena exception
+     * @throws TarjetaCaducadaException
+     *             the tarjeta caducada exception
+     */
     @Test(expected = SesionPasadaException.class)
     public void crearCompraSesionPasada() throws SesionPasadaException,
             InstanceNotFoundException, SesionLlenaException,
@@ -468,6 +609,22 @@ public class CompraServiceTest {
                 "1234567889123456", exptarjeta, sesion.getIdSesion());
     }
 
+    /**
+     * Entregar entradas sesion pasada.
+     *
+     * @throws CompraYaEntregadaException
+     *             the compra ya entregada exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     * @throws SesionLlenaException
+     *             the sesion llena exception
+     * @throws BadArgumentException
+     *             the bad argument exception
+     * @throws TarjetaCaducadaException
+     *             the tarjeta caducada exception
+     * @throws SesionPasadaException
+     *             the sesion pasada exception
+     */
     @Test(expected = SesionPasadaException.class)
     public void entregarEntradasSesionPasada()
             throws CompraYaEntregadaException, InstanceNotFoundException,

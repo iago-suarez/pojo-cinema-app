@@ -26,69 +26,109 @@ import es.udc.pojo.web.encoders.ProvinciaEncoder;
 import es.udc.pojo.web.pages.Index;
 import es.udc.pojo.web.util.CookiesManager;
 
+/**
+ * The Class SeleccionCine.
+ */
 public class SeleccionCine {
 
+    /** The response. */
     HttpServletResponse response;
+
+    /** The http request. */
     HttpServletRequest  httpRequest;
 
+    /** The select cine form. */
     @Component
     private Form        selectCineForm;
 
+    /** The index. */
     @InjectPage
     Index               index;
 
+    /** The request. */
     @Inject
     Request             request;
 
+    /** The n cine. */
     private String      nCine;
 
+    /** The n provincia. */
     private String      nProvincia;
 
+    /** The provincia. */
     @Property
     private Provincia   provincia;
 
+    /** The select cine. */
     @Property
     private Cine        selectCine;
 
+    /** The select provincia. */
     @Property
     private Provincia   selectProvincia;
 
+    /** The cine. */
     @Property
     private Cine        cine;
 
+    /** The select model factory. */
     @Inject
     SelectModelFactory  selectModelFactory;
 
+    /** The provincias select model. */
     @Property
     private SelectModel provinciasSelectModel;
 
+    /** The cines select model. */
     @Property
     private SelectModel cinesSelectModel;
 
+    /** The catalogo service. */
     @Inject
     CatalogoService     catalogoService;
 
+    /** The cookies. */
     @Inject
     Cookies             cookies;
 
+    /**
+     * Gets the n provincia.
+     *
+     * @return the n provincia
+     */
     public String getnProvincia() {
 
         return nProvincia;
     }
 
+    /**
+     * Sets the n provincia.
+     *
+     * @param aux
+     *            the new n provincia
+     */
     public void setnProvincia(String aux) {
 
         this.nProvincia = aux;
     }
 
+    /**
+     * Gets the n cine.
+     *
+     * @return the n cine
+     */
     public String getnCine() {
 
         return nCine;
     }
 
+    /** The model zone provincia. */
     @InjectComponent
     private Zone modelZoneProvincia;
 
+    /**
+     * On activate.
+     */
     void onActivate() {
         List<Provincia> provincias = catalogoService.findProvincias();
         provinciasSelectModel = selectModelFactory.create(provincias,
@@ -96,6 +136,13 @@ public class SeleccionCine {
 
     }
 
+    /**
+     * On value changed from select provincia.
+     *
+     * @param selectProvincia
+     *            the select provincia
+     * @return the object
+     */
     Object onValueChangedFromSelectProvincia(Provincia selectProvincia) {
 
         List<Cine> cines = new ArrayList<Cine>();
@@ -104,16 +151,31 @@ public class SeleccionCine {
         return modelZoneProvincia.getBody();
     }
 
+    /**
+     * On success.
+     *
+     * @return the object
+     */
     Object onSuccess() {
 
         CookiesManager.leaveCookieCinePref(cookies, cine.getIdCine());
         return index;
     }
 
+    /**
+     * Gets the provincia encoder.
+     *
+     * @return the provincia encoder
+     */
     public ProvinciaEncoder getProvinciaEncoder() {
         return new ProvinciaEncoder(catalogoService);
     }
 
+    /**
+     * Gets the cine encoder.
+     *
+     * @return the cine encoder
+     */
     public CineEncoder getCineEncoder() {
         return new CineEncoder(catalogoService);
     }

@@ -2,6 +2,9 @@ package es.udc.pojo.model.userservice.util;
 
 import java.util.Random;
 
+/**
+ * The Class PasswordEncrypter.
+ */
 public class PasswordEncrypter {
     /*
      * "jcrypt" only considers the first 8 characters of the clear text, and
@@ -22,14 +25,27 @@ public class PasswordEncrypter {
      * cookie (see javax.servlet.http.Cookie).
      */
 
+    /** The Constant A_ASCII_CODE. */
     private final static int A_ASCII_CODE      = 65;
+
+    /** The Constant Z_ASCII_CODE. */
     private final static int Z_ASCII_CODE      = 90;
+
+    /** The Constant NUMBER_OF_LETTERS. */
     private final static int NUMBER_OF_LETTERS = Z_ASCII_CODE - A_ASCII_CODE
                                                        + 1;
 
+    /**
+     * Instantiates a new password encrypter.
+     */
     private PasswordEncrypter() {
     }
 
+    /**
+     * Generate random salt.
+     *
+     * @return the string
+     */
     private final static String generateRandomSalt() {
 
         Random randomGenerator = new Random();
@@ -44,6 +60,13 @@ public class PasswordEncrypter {
 
     }
 
+    /**
+     * Crypt.
+     *
+     * @param clearPassword
+     *            the clear password
+     * @return the string
+     */
     public final static String crypt(String clearPassword) {
 
         String salt = generateRandomSalt();
@@ -52,6 +75,15 @@ public class PasswordEncrypter {
 
     }
 
+    /**
+     * Checks if is clear password correct.
+     *
+     * @param clearPassword
+     *            the clear password
+     * @param encryptedPassword
+     *            the encrypted password
+     * @return true, if is clear password correct
+     */
     public final static boolean isClearPasswordCorrect(String clearPassword,
             String encryptedPassword) {
 

@@ -13,8 +13,17 @@ import es.udc.pojo.model.provincia.ProvinciaDaoHibernate;
 import es.udc.pojo.model.sala.Sala;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class CineDaoExperiments.
+ */
 public class CineDaoExperiments {
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     */
     public static void main(String[] args) {
 
         ProvinciaDaoHibernate provinciaDaoHibernate = new ProvinciaDaoHibernate();

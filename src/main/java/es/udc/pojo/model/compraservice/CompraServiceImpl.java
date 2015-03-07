@@ -18,18 +18,33 @@ import es.udc.pojo.model.util.SesionPasadaException;
 import es.udc.pojo.model.util.TarjetaCaducadaException;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class CompraServiceImpl.
+ */
 @Service("compraService")
 @Transactional
 public class CompraServiceImpl implements CompraService {
 
     // private static final int MAXIMOENTRADAS = 10;
+    /** The compra dao. */
     @Autowired
     private CompraDao      compraDao;
+
+    /** The user profile dao. */
     @Autowired
     private UserProfileDao userProfileDao;
+
+    /** The sesion dao. */
     @Autowired
     private SesionDao      sesionDao;
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.compraservice.CompraService#createCompra(java.lang.
+     * Long, int, java.lang.String, java.util.Calendar, java.lang.Long)
+     */
     public Long createCompra(Long usrId, int numEntradas,
             String numTarjetaCredito, Calendar fechaExpTarjeta, Long idSesion)
             throws InstanceNotFoundException, SesionLlenaException,
@@ -62,6 +77,13 @@ public class CompraServiceImpl implements CompraService {
         return compra.getIdCompra();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.compraservice.CompraService#findCompras(java.lang.Long,
+     * int, int)
+     */
     @Transactional(readOnly = true)
     public CompraBlock findCompras(Long usrId, int startIndex, int count) {
 
@@ -85,12 +107,25 @@ public class CompraServiceImpl implements CompraService {
         return new CompraBlock(compras, existMoreCompras);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.compraservice.CompraService#findCompra(java.lang.Long)
+     */
     @Transactional(readOnly = true)
     public Compra findCompra(Long idCompra) throws InstanceNotFoundException {
 
         return compraDao.find(idCompra);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.compraservice.CompraService#entregarEntradas(java.lang
+     * .Long)
+     */
     public Compra entregarEntradas(Long idCompra)
             throws CompraYaEntregadaException, InstanceNotFoundException,
             SesionPasadaException {

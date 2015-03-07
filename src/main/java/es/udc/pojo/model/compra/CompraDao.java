@@ -4,6 +4,9 @@ import java.util.List;
 
 import es.udc.pojo.modelutil.dao.GenericDao;
 
+/**
+ * The Interface CompraDao.
+ */
 public interface CompraDao extends GenericDao<Compra, Long> {
 
     /**

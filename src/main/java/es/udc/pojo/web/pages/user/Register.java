@@ -19,47 +19,66 @@ import es.udc.pojo.web.services.AuthenticationPolicy;
 import es.udc.pojo.web.services.AuthenticationPolicyType;
 import es.udc.pojo.web.util.UserSession;
 
+/**
+ * The Class Register.
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.NON_AUTHENTICATED_USERS)
 public class Register {
 
+    /** The login name. */
     @Property
     private String        loginName;
 
+    /** The password. */
     @Property
     private String        password;
 
+    /** The retype password. */
     @Property
     private String        retypePassword;
 
+    /** The first name. */
     @Property
     private String        firstName;
 
+    /** The last name. */
     @Property
     private String        lastName;
 
+    /** The email. */
     @Property
     private String        email;
 
+    /** The user session. */
     @SessionState(create = false)
     private UserSession   userSession;
 
+    /** The user service. */
     @Inject
     private UserService   userService;
 
+    /** The registration form. */
     @Component
     private Form          registrationForm;
 
+    /** The login name field. */
     @Component(id = "loginName")
     private TextField     loginNameField;
 
+    /** The password field. */
     @Component(id = "password")
     private PasswordField passwordField;
 
+    /** The messages. */
     @Inject
     private Messages      messages;
 
+    /** The user profile id. */
     private Long          userProfileId;
 
+    /**
+     * On validate from registration form.
+     */
     void onValidateFromRegistrationForm() {
 
         if (!registrationForm.isValid()) {
@@ -85,6 +104,11 @@ public class Register {
 
     }
 
+    /**
+     * On success.
+     *
+     * @return the object
+     */
     Object onSuccess() {
 
         userSession = new UserSession();

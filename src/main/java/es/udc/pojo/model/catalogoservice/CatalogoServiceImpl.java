@@ -21,22 +21,39 @@ import es.udc.pojo.model.util.BadArgumentException;
 import es.udc.pojo.model.util.CoincidentSesionsException;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class CatalogoServiceImpl.
+ */
 @Service("catalogoService")
 @Transactional
 public class CatalogoServiceImpl implements CatalogoService {
 
+    /** The provincia dao. */
     @Autowired
     private ProvinciaDao provinciaDao;
+
+    /** The cine dao. */
     @Autowired
     private CineDao      cineDao;
+
+    /** The pelicula dao. */
     @Autowired
     private PeliculaDao  peliculaDao;
+
+    /** The sesion dao. */
     @Autowired
     private SesionDao    sesionDao;
+
+    /** The sala dao. */
     @Autowired
     private SalaDao      salaDao;
 
     /**
+     * Gets the next day init.
+     *
+     * @param today
+     *            the today
+     * @return the next day init
      * @Receive: Dia del que deseamos calcular el siguiente Return : Calendar
      *           con el momento en el comienza el proximo dia
      */
@@ -71,17 +88,36 @@ public class CatalogoServiceImpl implements CatalogoService {
         return tomorrow;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see es.udc.pojo.model.catalogoservice.CatalogoService#findProvincias()
+     */
     @Transactional(readOnly = true)
     public List<Provincia> findProvincias() {
 
         return provinciaDao.findAll();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.catalogoservice.CatalogoService#findCine(java.lang.
+     * Long)
+     */
     @Transactional(readOnly = true)
     public Cine findCine(Long idCine) throws InstanceNotFoundException {
         return cineDao.find(idCine);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.catalogoservice.CatalogoService#findPeliculas(java.
+     * lang.Long, java.util.Calendar)
+     */
     @Transactional(readOnly = true)
     public List<PeliculaSesionDto> findPeliculas(Long idCine, Calendar fecha) {
 
@@ -128,6 +164,13 @@ public class CatalogoServiceImpl implements CatalogoService {
         return L;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.catalogoservice.CatalogoService#createSesions(java.
+     * util.List, java.util.Calendar, java.lang.Long)
+     */
     public void createSesions(List<Sesion> sesiones, Calendar fecha, Long idCine)
             throws BadArgumentException, CoincidentSesionsException {
         validarSesions(sesiones, fecha, idCine);
@@ -137,6 +180,13 @@ public class CatalogoServiceImpl implements CatalogoService {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.catalogoservice.CatalogoService#validarSesions(java
+     * .util.List, java.util.Calendar, java.lang.Long)
+     */
     @Override
     public void validarSesions(List<Sesion> sesiones, Calendar fecha,
             Long idCine) throws BadArgumentException,
@@ -197,6 +247,13 @@ public class CatalogoServiceImpl implements CatalogoService {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.catalogoservice.CatalogoService#findPelicula(java.lang
+     * .Long)
+     */
     @Override
     @Transactional(readOnly = true)
     public Pelicula findPelicula(Long idPelicula)
@@ -204,12 +261,26 @@ public class CatalogoServiceImpl implements CatalogoService {
         return peliculaDao.find(idPelicula);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.catalogoservice.CatalogoService#findSesion(java.lang
+     * .Long)
+     */
     @Override
     @Transactional(readOnly = true)
     public Sesion findSesion(Long idSesion) throws InstanceNotFoundException {
         return sesionDao.find(idSesion);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.catalogoservice.CatalogoService#findProvincia(java.
+     * lang.Long)
+     */
     @Override
     @Transactional(readOnly = true)
     public Provincia findProvincia(Long idProvincia)
@@ -217,6 +288,13 @@ public class CatalogoServiceImpl implements CatalogoService {
         return provinciaDao.find(idProvincia);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * es.udc.pojo.model.catalogoservice.CatalogoService#findPeliculasActivasADia
+     * (java.util.Calendar)
+     */
     @Override
     @Transactional(readOnly = true)
     public List<Pelicula> findPeliculasActivasADia(Calendar day) {

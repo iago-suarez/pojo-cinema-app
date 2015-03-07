@@ -13,10 +13,17 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * The Class login.
+ */
 public class login {
 
+    /** The driver. */
     private WebDriver driver;
 
+    /**
+     * Open browser.
+     */
     @Before
     public void openBrowser() {
         driver = new FirefoxDriver();
@@ -25,12 +32,18 @@ public class login {
 
     }
 
+    /**
+     * Close browser.
+     */
     @After
     public void closeBrowser() {
         driver.close();
         driver.quit();
     }
 
+    /**
+     * Login test.
+     */
     @Test
     public void loginTest() {
 

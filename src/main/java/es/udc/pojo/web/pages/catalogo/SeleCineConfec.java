@@ -31,39 +31,55 @@ import es.udc.pojo.web.encoders.ProvinciaEncoder;
 import es.udc.pojo.web.services.AuthenticationPolicy;
 import es.udc.pojo.web.services.AuthenticationPolicyType;
 
+/**
+ * The Class SeleCineConfec.
+ */
 @AuthenticationPolicy(AuthenticationPolicyType.ADMINISTRADOR)
 public class SeleCineConfec {
 
+    /** The response. */
     HttpServletResponse   response;
+
+    /** The http request. */
     HttpServletRequest    httpRequest;
 
+    /** The confeccionar cartelera. */
     @InjectPage
     ConfeccionarCartelera confeccionarCartelera;
 
+    /** The catalogo service. */
     @Inject
     CatalogoService       catalogoService;
 
+    /** The messages. */
     @Inject
     private Messages      messages;
 
+    /** The date. */
     @Property
     private Date          date;
 
+    /** The provincia. */
     @Property
     private Provincia     provincia;
 
+    /** The n provincia. */
     @Property
     private String        nProvincia;
 
+    /** The select provincia. */
     @Property
     private Provincia     selectProvincia;
 
+    /** The cine. */
     @Property
     private Cine          cine;
 
+    /** The n cine. */
     @Property
     private String        nCine;
 
+    /** The select cine. */
     @Property
     private Cine          selectCine;
 
@@ -71,24 +87,32 @@ public class SeleCineConfec {
      * SelectModel es un componente que nos permite crear una serie de valores
      * para un componente select, a partir de una lista de objetos
      */
+    /** The cines select model. */
     @Property
     private SelectModel   cinesSelectModel;
 
     // Esta clase se emplea para crear los SelectModel del Cine y la Prov
+    /** The select model factory. */
     @Inject
     SelectModelFactory    selectModelFactory;
 
+    /** The select cine form. */
     @Component
     private Form          selectCineForm;
 
+    /** The date field. */
     @Component(id = "date")
     private DateField     dateField;
 
+    /** The model zone cine. */
     @InjectComponent
     private Zone          modelZoneCine;
 
     // CODE
 
+    /**
+     * On activate.
+     */
     public void onActivate() {
         if (selectProvincia == null)
             cinesSelectModel = selectModelFactory.create(new ArrayList<Cine>(),
@@ -96,8 +120,8 @@ public class SeleCineConfec {
     }
 
     /**
-     * Este método es llamado por la TML para obtener el selector de provincias
-     * 
+     * Este método es llamado por la TML para obtener el selector de provincias.
+     *
      * @return Un select model creado a partir de las provincias recuperadas
      */
     public SelectModel getProvinciasSelectModel() {
@@ -106,7 +130,8 @@ public class SeleCineConfec {
     }
 
     /**
-     * 
+     * On value changed from select provincia.
+     *
      * @param selectProvincia
      *            Provincia seleccionada actualmente
      * @return la Zona AJAX que contiene los cines de la provincia que se
@@ -119,6 +144,11 @@ public class SeleCineConfec {
         return modelZoneCine.getBody();
     }
 
+    /**
+     * On success.
+     *
+     * @return the object
+     */
     Object onSuccess() {
 
         confeccionarCartelera.setIdCine(cine.getIdCine());
@@ -127,6 +157,9 @@ public class SeleCineConfec {
         return confeccionarCartelera;
     }
 
+    /**
+     * On validate from select cine form.
+     */
     void onValidateFromSelectCineForm() {
         Calendar c = Calendar.getInstance();
         System.out.println("Date -> \n" + date);
@@ -149,10 +182,20 @@ public class SeleCineConfec {
 
     }
 
+    /**
+     * Gets the provincia encoder.
+     *
+     * @return the provincia encoder
+     */
     public ProvinciaEncoder getProvinciaEncoder() {
         return new ProvinciaEncoder(catalogoService);
     }
 
+    /**
+     * Gets the cine encoder.
+     *
+     * @return the cine encoder
+     */
     public CineEncoder getCineEncoder() {
         return new CineEncoder(catalogoService);
     }

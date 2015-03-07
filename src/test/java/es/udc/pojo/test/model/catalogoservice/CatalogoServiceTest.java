@@ -35,28 +35,49 @@ import es.udc.pojo.model.util.BadArgumentException;
 import es.udc.pojo.model.util.CoincidentSesionsException;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class CatalogoServiceTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
         locations = { SPRING_CONFIG_FILE, SPRING_CONFIG_TEST_FILE })
 @Transactional
 public class CatalogoServiceTest {
 
+    /** The non existent cine id. */
     private final long      NON_EXISTENT_CINE_ID = -1;
+
+    /** The user service. */
     @Autowired
     private UserService     userService;
+
+    /** The catalogo service. */
     @Autowired
     private CatalogoService catalogoService;
+
+    /** The provincia dao. */
     @Autowired
     private ProvinciaDao    provinciaDao;
+
+    /** The cine dao. */
     @Autowired
     private CineDao         cineDao;
+
+    /** The sala dao. */
     @Autowired
     private SalaDao         salaDao;
+
+    /** The pelicula dao. */
     @Autowired
     private PeliculaDao     peliculaDao;
+
+    /** The sesion dao. */
     @Autowired
     private SesionDao       sesionDao;
 
+    /**
+     * Test find provincias.
+     */
     @Test
     public void testFindProvincias() {
 
@@ -85,6 +106,12 @@ public class CatalogoServiceTest {
 
     }
 
+    /**
+     * Test find non existent cine.
+     *
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     */
     @Test(expected = InstanceNotFoundException.class)
     public void testFindNonExistentCine() throws InstanceNotFoundException {
 
@@ -92,6 +119,12 @@ public class CatalogoServiceTest {
 
     }
 
+    /**
+     * Test find cine.
+     *
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     */
     @Test
     public void testFindCine() throws InstanceNotFoundException {
         Provincia provincia = new Provincia("A Coruña", new HashSet<Cine>());
@@ -104,6 +137,9 @@ public class CatalogoServiceTest {
         assertEquals(cine, cine1);
     }
 
+    /**
+     * Test find peliculas.
+     */
     @Test
     public void testFindPeliculas() {
         Provincia provincia = new Provincia("A Coruña", new HashSet<Cine>());
@@ -287,6 +323,9 @@ public class CatalogoServiceTest {
 
     }
 
+    /**
+     * Find peliculas activas a dia.
+     */
     @Test
     public void findPeliculasActivasADia() {
 
@@ -335,6 +374,16 @@ public class CatalogoServiceTest {
 
     }
 
+    /**
+     * Test create sesions.
+     *
+     * @throws BadArgumentException
+     *             the bad argument exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     * @throws CoincidentSesionsException
+     *             the coincident sesions exception
+     */
     @Test
     public void testCreateSesions() throws BadArgumentException,
             InstanceNotFoundException, CoincidentSesionsException {
@@ -390,6 +439,14 @@ public class CatalogoServiceTest {
 
     }
 
+    /**
+     * Test create sesions diferente dia.
+     *
+     * @throws BadArgumentException
+     *             the bad argument exception
+     * @throws CoincidentSesionsException
+     *             the coincident sesions exception
+     */
     @Test(expected = BadArgumentException.class)
     public void TestCreateSesionsDiferenteDia() throws BadArgumentException,
             CoincidentSesionsException {
@@ -442,6 +499,14 @@ public class CatalogoServiceTest {
 
     }
 
+    /**
+     * Test create sesions diferente cine.
+     *
+     * @throws BadArgumentException
+     *             the bad argument exception
+     * @throws CoincidentSesionsException
+     *             the coincident sesions exception
+     */
     @Test(expected = BadArgumentException.class)
     public void TestCreateSesionsDiferenteCine() throws BadArgumentException,
             CoincidentSesionsException {
@@ -500,6 +565,14 @@ public class CatalogoServiceTest {
         }
     }
 
+    /**
+     * Test create on existent sesions.
+     *
+     * @throws BadArgumentException
+     *             the bad argument exception
+     * @throws CoincidentSesionsException
+     *             the coincident sesions exception
+     */
     @Test(expected = BadArgumentException.class)
     public void TestCreateOnExistentSesions() throws BadArgumentException,
             CoincidentSesionsException {
@@ -550,6 +623,14 @@ public class CatalogoServiceTest {
         catalogoService.createSesions(sadd, tomorrow, cine2.getIdCine()); // Exception
     }
 
+    /**
+     * Test create yesterday sesions.
+     *
+     * @throws BadArgumentException
+     *             the bad argument exception
+     * @throws CoincidentSesionsException
+     *             the coincident sesions exception
+     */
     @Test(expected = BadArgumentException.class)
     public void TestCreateYesterdaySesions() throws BadArgumentException,
             CoincidentSesionsException {
@@ -587,6 +668,9 @@ public class CatalogoServiceTest {
         catalogoService.createSesions(sesions, ayer, cine2.getIdCine());
     }
 
+    /**
+     * Test create concident sesions.
+     */
     @Test
     public void TestCreateConcidentSesions() {
 

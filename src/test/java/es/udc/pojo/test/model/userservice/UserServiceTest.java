@@ -18,17 +18,30 @@ import es.udc.pojo.model.util.IncorrectPasswordException;
 import es.udc.pojo.modelutil.exceptions.DuplicateInstanceException;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class UserServiceTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
         locations = { SPRING_CONFIG_FILE, SPRING_CONFIG_TEST_FILE })
 @Transactional
 public class UserServiceTest {
 
+    /** The non existent user profile id. */
     private final long  NON_EXISTENT_USER_PROFILE_ID = -1;
 
+    /** The user service. */
     @Autowired
     private UserService userService;
 
+    /**
+     * Test register user and find user profile.
+     *
+     * @throws DuplicateInstanceException
+     *             the duplicate instance exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     */
     @Test
     public void testRegisterUserAndFindUserProfile()
             throws DuplicateInstanceException, InstanceNotFoundException {
@@ -46,6 +59,14 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Test register duplicated user.
+     *
+     * @throws DuplicateInstanceException
+     *             the duplicate instance exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     */
     @Test(expected = DuplicateInstanceException.class)
     public void testRegisterDuplicatedUser() throws DuplicateInstanceException,
             InstanceNotFoundException {
@@ -61,6 +82,14 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Test login clear password.
+     *
+     * @throws IncorrectPasswordException
+     *             the incorrect password exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     */
     @Test
     public void testLoginClearPassword() throws IncorrectPasswordException,
             InstanceNotFoundException {
@@ -75,6 +104,14 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Test login encrypted password.
+     *
+     * @throws IncorrectPasswordException
+     *             the incorrect password exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     */
     @Test
     public void testLoginEncryptedPassword() throws IncorrectPasswordException,
             InstanceNotFoundException {
@@ -89,6 +126,14 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Test login incorrect pasword.
+     *
+     * @throws IncorrectPasswordException
+     *             the incorrect password exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     */
     @Test(expected = IncorrectPasswordException.class)
     public void testLoginIncorrectPasword() throws IncorrectPasswordException,
             InstanceNotFoundException {
@@ -101,6 +146,14 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Test login with non existent user.
+     *
+     * @throws IncorrectPasswordException
+     *             the incorrect password exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     */
     @Test(expected = InstanceNotFoundException.class)
     public void testLoginWithNonExistentUser()
             throws IncorrectPasswordException, InstanceNotFoundException {
@@ -109,6 +162,12 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Test find non existent user.
+     *
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     */
     @Test(expected = InstanceNotFoundException.class)
     public void testFindNonExistentUser() throws InstanceNotFoundException {
 
@@ -116,6 +175,14 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Test update.
+     *
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     * @throws IncorrectPasswordException
+     *             the incorrect password exception
+     */
     @Test
     public void testUpdate() throws InstanceNotFoundException,
             IncorrectPasswordException {
@@ -144,6 +211,12 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Test update with non existent user.
+     *
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     */
     @Test(expected = InstanceNotFoundException.class)
     public void testUpdateWithNonExistentUser()
             throws InstanceNotFoundException {
@@ -153,6 +226,14 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Test change password.
+     *
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     * @throws IncorrectPasswordException
+     *             the incorrect password exception
+     */
     @Test
     public void testChangePassword() throws InstanceNotFoundException,
             IncorrectPasswordException {
@@ -170,6 +251,14 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Test change password with incorrect password.
+     *
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     * @throws IncorrectPasswordException
+     *             the incorrect password exception
+     */
     @Test(expected = IncorrectPasswordException.class)
     public void testChangePasswordWithIncorrectPassword()
             throws InstanceNotFoundException, IncorrectPasswordException {
@@ -182,6 +271,14 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Test change password with non existent user.
+     *
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     * @throws IncorrectPasswordException
+     *             the incorrect password exception
+     */
     @Test(expected = InstanceNotFoundException.class)
     public void testChangePasswordWithNonExistentUser()
             throws InstanceNotFoundException, IncorrectPasswordException {
@@ -191,6 +288,15 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * Register user.
+     *
+     * @param loginName
+     *            the login name
+     * @param clearPassword
+     *            the clear password
+     * @return the user profile
+     */
     private UserProfile registerUser(String loginName, String clearPassword) {
 
         UserProfileDetails userProfileDetails = new UserProfileDetails("name",

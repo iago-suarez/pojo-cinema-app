@@ -13,8 +13,17 @@ import es.udc.pojo.model.util.IncorrectPasswordException;
 import es.udc.pojo.modelutil.exceptions.DuplicateInstanceException;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class UserServiceExperiments.
+ */
 public class UserServiceExperiments {
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     */
     public static void main(String[] args) {
 
         /* Get service object. */

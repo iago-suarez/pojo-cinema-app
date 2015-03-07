@@ -1,5 +1,14 @@
 package es.udc.pojo.model.userprofile;
 
+/**
+ * The Enum TipoUsuario.
+ */
 public enum TipoUsuario {
-    TAQUILLERO, ADMINISTRADOR, ESPECTADOR
+
+    /** The taquillero. */
+    TAQUILLERO,
+    /** The administrador. */
+    ADMINISTRADOR,
+    /** The espectador. */
+    ESPECTADOR
 };

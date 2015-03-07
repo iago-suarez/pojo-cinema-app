@@ -22,8 +22,17 @@ import es.udc.pojo.model.sesion.SesionDao;
 import es.udc.pojo.model.sesion.SesionDaoHibernate;
 import es.udc.pojo.modelutil.exceptions.InstanceNotFoundException;
 
+/**
+ * The Class SesionDaoExperiments.
+ */
 public class SesionDaoExperiments {
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     */
     public static void main(String[] args) {
 
         ProvinciaDaoHibernate provinciaDaoHibernate = new ProvinciaDaoHibernate();

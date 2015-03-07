@@ -7,9 +7,21 @@ import org.apache.tapestry5.plastic.PlasticMethod;
 import org.apache.tapestry5.services.transform.ComponentClassTransformWorker2;
 import org.apache.tapestry5.services.transform.TransformationSupport;
 
+/**
+ * The Class AuthenticationPolicyWorker.
+ */
 public class AuthenticationPolicyWorker implements
         ComponentClassTransformWorker2 {
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.apache.tapestry5.services.transform.ComponentClassTransformWorker2
+     * #transform(org.apache.tapestry5.plastic.PlasticClass,
+     * org.apache.tapestry5.services.transform.TransformationSupport,
+     * org.apache.tapestry5.model.MutableComponentModel)
+     */
     @Override
     public void transform(PlasticClass plasticClass,
             TransformationSupport support, MutableComponentModel model) {
@@ -21,8 +33,8 @@ public class AuthenticationPolicyWorker implements
 
     /**
      * Read and process restriction on page classes annotated with
-     * {@link AuthenticationPolicy} annotation
-     * 
+     * {@link AuthenticationPolicy} annotation.
+     *
      * @param plasticClass
      *            Contains class-specific information used when transforming a
      *            raw component class into an executable component class.
@@ -44,8 +56,8 @@ public class AuthenticationPolicyWorker implements
     }
 
     /**
-     * Inject meta datas about annotated methods
-     * 
+     * Inject meta datas about annotated methods.
+     *
      * @param plasticClass
      *            Contains class-specific information used when transforming a
      *            raw component class into an executable component class.
@@ -92,6 +104,12 @@ public class AuthenticationPolicyWorker implements
      * component id is not specified. The component id is provided by the
      * OnEvent annotation or (if that is not present) by the part of the method
      * name following "From" ("onActionFromFoo").
+     *
+     * @param methodName
+     *            the method name
+     * @param annotation
+     *            the annotation
+     * @return the string
      */
     private String extractComponentId(String methodName, OnEvent annotation) {
         if (annotation != null)
@@ -117,6 +135,12 @@ public class AuthenticationPolicyWorker implements
      * Returns the event name to match against, as specified in the annotation
      * or (if the annotation is not present) extracted from the name of the
      * method. "onActionFromFoo" or just "onAction".
+     *
+     * @param methodName
+     *            the method name
+     * @param annotation
+     *            the annotation
+     * @return the string
      */
     private String extractEventType(String methodName, OnEvent annotation) {
         if (annotation != null)
