@@ -1,0 +1,9 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:pageTitle="title">
+
+
+<h4>${message:compra-entregada-msg}.</h4>
+
+<a class="btn btn-success" href="#" t:type="PageLink"
+	t:page="compra/comprobarentradas"> ${message:back} </a>
+</html>

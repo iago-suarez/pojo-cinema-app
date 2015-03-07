@@ -1,0 +1,14 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:pageTitle="title">
+<div id="carteleraConfeccBox" class="table-bordered">
+	<h3>${message:carteleraConfeccionada}</h3>
+	<p class="text-left">${message:cine}</p>
+	<h4 class="text-left">${cine.nCine}</h4>
+	<p class="text-left">${message:date}</p>
+	<h4 class="text-left">
+		<t:output value="date" format="dateFormatShort" />
+	</h4>
+	<a class="btn btn-primary" href="#" t:type="PageLink"
+		t:page="catalogo/selecineconfec">${message:continue}</a>
+</div>
+</html>

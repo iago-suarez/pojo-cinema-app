@@ -1,0 +1,48 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:p="tapestry:parameter"
+	t:type="Layout" t:pageTitle="title">
+	
+<t:if test="pelicula">
+	<div>
+	<table class="table">
+	
+	    <tr>
+	        <th>${message:peliculaTitulo-label}</th>
+	        <td>${pelicula.titulo}</td>
+	    </tr>
+	
+	    <tr>
+	        <th>${message:peliculaResumen-label}</th>
+	        <td>${pelicula.resumen}</td>
+	    </tr>
+	    
+	    <tr>
+	        <th>${message:peliculaDuracion-label}</th>
+	        <td><t:output value="pelicula.duracion" format="numberFormat"/></td>
+	    </tr>
+	    
+	    <tr>
+	        <th>${message:peliculaFInicio-label}</th>
+	        <td><t:output value="pelicula.fInicio.time" format="dateFormat" /></td>
+	    </tr>
+	    
+	    <tr>
+	        <th>${message:peliculaFFin-label}</th>
+	        <td><t:output value="pelicula.fFin.time" format="dateFormat" /></td>
+	    </tr>
+	
+	    
+	
+	</table>
+	</div>
+	
+	<div class="btn btn-default"><a href="#" t:type="PageLink" t:page="Index">${message:back-label}</a>
+	</div> 
+	        	
+	<p:else>
+		<p>${message:peliculaNotFound}</p>
+	</p:else>
+
+</t:if>
+
+</html>

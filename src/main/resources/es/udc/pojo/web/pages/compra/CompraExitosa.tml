@@ -1,0 +1,12 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:pageTitle="title">
+
+<t:if test="idCompra">
+	<h4>${message:compraExitosa-label} </h4>
+	<h3><t:output value="idCompra" format="numberFormat"/></h3>
+<p:else>
+	<h4>${message:idcompraNotFound-label}</h4>
+</p:else>
+</t:if>	
+   
+</html>

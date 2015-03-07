@@ -1,0 +1,86 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:pageTitle="title">
+
+	<nav class="navbar navbar-inverse" role="navigation" id="index-bar">
+		<div class="navbar-inner">
+			<div class="container" >
+				<ul class="nav navbar-nav">
+					<li>
+					<h4>${nCine}</h4>
+					</li>
+					<li>
+						<t:actionlink t:id="otroCine">${message:otroCine-label}</t:actionlink>
+					</li>
+				</ul>
+				<ul class="nav pull-right">
+					<li><a href="#" t:type="PageLink" t:page="Index" t:context="offset">
+					${message:today-label}</a>
+					</li>
+					<li t:type="Loop" t:source="days" t:value="dia">
+						<a href="#" t:type="PageLink" t:page="Index" t:context="offset">
+							<t:output value="dia.time" format="dateFormatShort" />
+						</a>
+					</li>
+				</ul>		
+			</div>
+		</div>
+	</nav>
+
+<t:if test="peliculaSesiones">
+
+	<!-- Mostrar peliculas -->
+	
+	
+	<div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th><h5>${message:tituloPelicula-label}
+					<t:output value="day.time" format="dateFormatLong" /> 
+					</h5>
+				</th>
+				<th><h5>${message:sesionesPelicula-label}</h5></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr t:type="Loop" t:source="peliculaSesiones" t:value="peliculaSesion">
+				<td id="peliculaBlock">
+					<div class="divpelicula">
+						<h4>
+							<a href="#" t:type="PageLink" t:page="catalogo/PeliculaDetalles"
+								t:context="peliculaSesion.pelicula.idPelicula">
+								${peliculaSesion.pelicula.titulo}
+							</a>
+							<small>
+								<div class="duracion">
+									${message:duracion-label}
+									<t:output value="peliculaSesion.pelicula.duracion"
+										format="numberFormat" />
+									${message:min-label}
+								</div>
+							</small>
+						</h4>
+					</div>
+				</td>
+				<td>
+					<ul>
+						<li id="sesion" t:type="Loop" t:source="peliculaSesion.sesiones"
+						t:value="sesion">
+							<a class="btn btn-primary" href="#" t:type="PageLink"
+							t:page="catalogo/detallessesion" t:context="sesion.idSesion">
+								<t:output value="sesion.horayFecha.time" format="dateFormatHour" />
+							</a>
+						</li>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+
+	<p:else>
+		<p>${message:noFilms}</p>
+	</p:else>
+</t:if>
+
+</html>

@@ -1,0 +1,42 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:pageTitle="title">
+
+<p class="welcome">${message:EscogerCine}</p>
+
+<form t:type="Form" t:id="selectCineForm">
+
+
+	<p>
+	<div class="field">
+
+		<span class="entry"> <t:select t:id="selectProvincia"
+				id="selectProvincia" model="provinciasSelectModel"
+				zone="modelZoneProvincia" value="provincia"
+				t:encoder="provinciaEncoder" validate="required"
+				t:blankOption="ALWAYS" t:blankLabel="Provincia" />
+		</span>
+	</div>
+	</p>
+	<p>
+	<div class="field">
+		<t:zone t:id="modelZoneProvincia" id="modelZoneProvincia">
+			<t:if test="cinesSelectModel">
+				<span class="entry"> <t:select t:id="selectCine"
+						model="cinesSelectModel" value="cine" t:encoder="cineEncoder"
+						t:blankOption="ALWAYS" t:blankLabel="Cine" validate="required" />
+				</span>
+			</t:if>
+		</t:zone>
+	</div>
+	</p>
+
+	<div class="button">
+		<input type="submit" value="${message:seleccionar}" />
+	</div>
+
+</form>
+
+
+
+
+</html>

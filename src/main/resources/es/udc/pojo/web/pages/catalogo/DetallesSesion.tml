@@ -1,0 +1,75 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:pageTitle="title">
+
+<t:if test="sesion">
+	<div>
+		<table class="table table-striped">
+
+			<tr>
+				<th>${message:peliculaTitulo-label}</th>
+				<td>${sesion.pelicula.titulo}</td>
+			</tr>
+
+
+			<tr>
+				<th>${message:peliculaDuracion-label}</th>
+				<td><t:output value="sesion.pelicula.duracion"
+						format="numberFormat" /> ${message:min-label}</td>
+			</tr>
+
+			<tr>
+				<th>${message:peliculaPrecio-label}</th>
+				<td><t:output value="sesion.precio" format="numberFormat" /></td>
+			</tr>
+
+			<tr>
+				<th>${message:nombreCine-label}</th>
+				<td>${sesion.sala.cine.nCine}</td>
+			</tr>
+
+			<tr>
+				<th>${message:nombreSala-label}</th>
+				<td>${message:nombreSala-label}<t:output
+						value="sesion.sala.nSala" format="numberFormat" /></td>
+			</tr>
+
+			<tr>
+				<th>${message:localidadesDisponibles-label}</th>
+				<td><t:output value="locdisp" format="numberFormat" /></td>
+			</tr>
+
+
+		</table>
+	</div>
+
+	<table class="table">
+		<tr>
+			<td><div class="btn btn-default">
+					<a href="#" t:type="PageLink" t:page="Index">${message:back-label}</a>
+				</div></td>
+			<t:if test="locdisp">
+
+				<td><div>
+						<t:if test="userSession">
+							<a class="btn btn-default" href="#" t:type="ActionLink"
+								t:id="comprar" t:context="sesion.idSesion">${message:comprar-label}</a>
+							<p:else>
+								<a class="btn btn-default" href="#" t:type="PageLink"
+									t:page="user/Login" t:context="sesion.idSesion">${message:comprar-label}</a>
+							</p:else>
+						</t:if>
+					</div></td>
+			</t:if>
+		</tr>
+	</table>
+
+
+
+
+	<p:else>
+		<p>${message:sesionNotFound}</p>
+	</p:else>
+
+</t:if>
+
+</html>

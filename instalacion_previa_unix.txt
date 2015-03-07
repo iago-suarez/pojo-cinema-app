@@ -1,0 +1,145 @@
+Instalación / Configuración entorno PA / 2014-2015 - Unix / Mac OS
+-------------------------------------------------------------------------------
+
+* Descarga y copia del SW desde ftp://ftp.fic.udc.es/publico/POJOyWS/
+
+- Seleccionar la versión adecuada al operativo (Windows) / arquitectura del 
+    ordenador (32 o 64 bits).  
+    
+- Descargar y descomprimir en /opt el siguiente software
+   - jdk
+   - maven
+   - eclipse
+   - mysql
+	 
+- Descargar y descomprimir en $HOME/software el siguiente software
+   - tomcat
+  
+* Pasos de pre-instalación de MySQL 5.6.19
+- Instalación de MySQL como usuario root y ejecución como usuario normal
+
+sudo chown -R root:root mysql-5.6.19-linux-glibc2.5-i686
+# NOTE: For Mac OS X, use "root:wheel" instead of "root:root" with "chown".
+sudo chmod -R 755 mysql-5.6.19-linux-glibc2.5-i686
+sudo ln -s /opt/mysql-5.6.19-linux-glibc2.5-i686 /usr/local/mysql
+
+- En Ubuntu debe instalarse la librería libio1
+sudo apt-get install libaio1
+
+* Establecer variables de entorno
+- Añadir al fichero $HOME/.bashrc lo siguiente (en el caso de Mac OS X utilizar 
+  el fichero $HOME/.bash_profile)
+
+# J2SE
+# De momento Jetty no parece funcionar con la version 8 de Java, 
+#con lo que se recomienda emplear la Java JDK 7
+
+export JAVA_HOME=/opt/jdk1.8.0_05
+# For Mac OS X, use:
+#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home
+# For convenience.
+PATH=$JAVA_HOME/bin:$PATH
+
+# Maven
+MAVEN_HOME=/opt/apache-maven-3.2.2
+PATH=$MAVEN_HOME/bin:$PATH
+export MAVEN_OPTS="-Xms512m -Xmx1024m"
+
+# MySQL.
+MYSQL_HOME=/opt/mysql-5.6.19-linux-glibc2.5-i686
+PATH=$MYSQL_HOME/bin:$PATH
+
+# Tomcat.
+export CATALINA_OPTS=$MAVEN_OPTS
+
+# Eclipse.
+PATH=/opt/eclipse:$PATH
+  
+- Cerrar todos los terminales y abrir terminales nuevos
+
+- Comprobar que el entorno ha quedado correctamente configurado comprobando 
+  salidas de los siguientes comandos
+
+which java
+which mvn
+which eclipse
+which mysqld
+  
+* Configuración de MySQL (inicialización de la zona de datos )
+
+mkdir $HOME/software/.MySQLData
+
+- Crear un fichero $HOME/.my.cnf con el siguiente contenido (en lugar de <login>
+  poner el login del usuario)
+
+[mysqld]
+datadir=/home/<login>/software/.MySQLData
+
+- Creación de zona de datos del servidor MySQL
+
+cd /usr/local/mysql
+scripts/mysql_install_db
+
+# NOTA IMPORTANTE: Si la ejecución de este script falla indicando el mensaje de
+  error "Can't read from messagefile '/usr/share/mysql/english/errmsg.sys'", 
+  probar a repetir el comando con las opciones --no-defaults, --basedir y 
+  --datadir:
+  
+cd /usr/local/mysql
+scripts/mysql_install_db --no-defaults --basedir=$MYSQL_HOME --datadir=/home/<login>/software/.MySQLData
+
+# NOTA IMPORTANTE: Si la ejecución de este script no ha encontrado el comando 
+  mysql, modificar el fichero $HOME/.my.cnf para indicar las siguientes entradas
+  y después volver a ejecutar scripts/mysql_install_db
+
+[client]
+socket      = /home/<login>/software/.MySQLData/mysqld.sock
+
+[mysqld]
+pid-file    = /home/<login>/software/.MySQLData/mysqld.pid
+socket      = /home/<login>/software/.MySQLData/mysqld.sock
+basedir     = /usr/local/mysql
+datadir     = /home/<login>/software/.MySQLData
+tmpdir      = /tmp
+language    = /usr/local/mysql/share/english
+
+# NOTA IMPORTANTE: Si sigue sin funcionar y muestra un error de permisos por la 
+  utilización del usuario mysql, ejecutar en su lugar
+scripts/mysql_install_db --user=<login>
+
+
+* Creación de bases de datos necesarias para los ejemplos
+
+- Arrancar MySQL
+
+mysqld
+
+- Creación de bases de datos pojo y pojotest (abrir en una consola diferente)
+
+mysqladmin -u root create pojo
+mysqladmin -u root create pojotest
+
+- Creación de usuario pojo con password con permisos sobre pojo y pojotest
+
+mysql -u root
+
+  GRANT ALL PRIVILEGES ON pojo.* to pojo@localhost IDENTIFIED BY 'pojo';
+  GRANT ALL PRIVILEGES ON pojotest.* to pojo@localhost IDENTIFIED BY 'pojo';
+  exit
+
+- Comprobar acceso a BD
+
+mysql -u pojo --password=pojo pojo
+  exit
+
+mysql -u pojo --password=pojo pojotest
+  exit
+	
+* Inicialización de datos de ejemplo y compilación de los ejemplos
+
+cd $HOME/software/pojo-examples-2.2.0
+mvn sql:execute install
+
+* Finalizar la ejecución de la BD
+
+mysqladmin -u root shutdown

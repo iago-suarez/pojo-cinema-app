@@ -1,0 +1,52 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:p="tapestry:parameter"
+	t:type="Layout" t:pageTitle="title">
+
+	<form role="form" t:type="Form" t:id="compraForm">
+	
+		<t:errors/>
+		 
+	    <div class="form-group">
+	        <t:label for="numeroTarjetaCredito"/>
+	        <span class="entry">
+				<input t:type="TextField" t:id="numeroTarjetaCredito" 
+				       t:validate="required,min=0" size="16" maxlength="16"/>
+	        </span>
+	    </div>
+	    
+	    <div class="form-group">
+        	<t:label for="expiracionTarjetaCredito"/>
+        	<span class="entry">
+				<input t:type="TextField" t:id="expiracionTarjetaCredito" 
+				       t:validate="required" size="16" maxlength="7" minlength="7"/>
+	        </span>
+        </div>
+        
+        <div class="form-group">
+	        <t:label for="numeroDeEntradas"/>
+	        <span class="entry">
+				<input t:type="TextField" t:id="numeroDeEntradas" 
+				       t:validate="required,min=1,max=10" size="16" maxlength="2"/>
+	        </span>
+	    </div>
+        
+	    
+	    
+	    
+	    <table class="table" >
+		<tr>
+			<td><div class="btn btn-default"><a href="#" t:type="PageLink" t:page="catalogo/detallessesion"
+			t:context="idSesion">${message:back-label}</a>
+				</div> 
+			</td>
+			
+			<td><div>
+			<input class="btn btn-default" type="submit" value="${message:comprar-label}"/>
+	    </div></td>
+			
+		</tr>
+	</table>
+	
+	</form>
+	
+</html>	

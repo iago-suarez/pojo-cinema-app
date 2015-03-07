@@ -1,0 +1,203 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+/* LAYOUT */
+header{
+	background-color: #000000;
+}
+
+body{
+	background-image: url('../images/fondo2.jpg');
+	text-align: center;
+}
+
+#menuWelcome{
+	padding-right: 5px;
+	vertical-align: middle;
+}
+
+#rememberMyPassword{
+	float: left;
+	margin: 10px;
+	margin-left: -25px;
+}
+
+footer{
+	clear: both; 
+	vertical-align: center;
+	text-align: center;
+
+	padding-top: 10px;
+	border-width:1px;
+	border-top-style: solid;
+
+	/*position: absolute;*/
+	width: 100%;
+	bottom: 0;
+}
+
+footer p{
+	font-size: small;
+}
+
+footer div div{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+/* LOGIN PAGE */
+
+input{
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#loginBox{
+	text-align: left;
+	max-width: 220px;
+	margin: 0 auto;
+}
+
+#loginEnterBut{
+	margin-top: 15px;
+	vertical-align: center;
+	text-align: center;
+}
+
+/* REGISTRATION PAGE */
+
+#registrationForm div.form-group {
+    clear: both;
+    padding-top: 1em;
+    width: 100%;
+}
+
+#registrationForm div.form-group label {
+    float: left;    
+    text-align: right;
+    font-weight: bold;
+    width: 49.5%;
+}
+
+#registrationForm div.form-group span.entry {
+    float: right;    
+    text-align: left;
+    width: 49.5%;
+}
+
+#register-submit-container {
+    margin-top: 50px;
+}
+
+
+/* INDEX */
+
+ul{
+	margin-left: 0;
+}
+
+.table th, .table td{
+	vertical-align: inherit;;
+}
+
+#sesion{
+	display: inline-block;
+	padding-right: 15px;
+}
+
+.btn-primary a{
+	color: white;
+}
+
+#peliculaBlock{
+	width: 300px;
+}
+
+#compra-container{
+clear:both;
+width: 500px;
+}
+
+.compra-table{
+	float:left;
+	width: 45%;
+	margin: 2.5%;
+	background-color: white;
+	box-shadow: 2px 2px 5px #999;
+}
+
+input.btn-compra{
+	margin:0px 10px 0px 10px;
+}
+
+#index-bar{
+	margin-top: -20px;
+}
+.navbar-nav li h4{
+	color: #999;
+}
+/* Confeccionar cartelera */
+
+.hora-min-input{
+	width: 30px;
+}
+
+.hora-form{
+	width: 60px;
+	float: left;
+}
+
+.min-form{
+	width: 60px;
+	float: left;
+}
+
+.hora-min-div{
+	margin: 0 auto;
+	text-align: center;
+	height: 70px;
+	width: 235px;
+}
+
+.sesions-table{
+	float:left;
+	width: 45%;
+	margin: 2.5%;
+	background-color: white;
+}
+table{
+	width: 100%;
+}
+
+th h5{
+	margin: 0px;
+}
+#sesions-form{
+	float:left;
+	width: 45%;
+	margin: 2.5%;
+}
+
+.confecFormButton{
+	padding: 4px 30px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+/* CARTELERA CONFECCIONADA */
+#carteleraConfeccBox{
+	width: 500px;
+	margin: auto;
+	margin-bottom: 20px;
+	background-color: white;
+	padding: 0px 10px 10px 10px;
+}
+
+/* Error messages. */
+
+div.t-error ul {
+	font-weight: bold;
+}

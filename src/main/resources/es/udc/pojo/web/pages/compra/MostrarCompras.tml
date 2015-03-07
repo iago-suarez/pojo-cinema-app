@@ -1,0 +1,58 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:p="tapestry:parameter"
+	t:type="Layout" t:pageTitle="title">
+
+
+
+ <t:if test="compras">
+		<table class="table table-striped">
+            <thead>
+                <tr>
+		    <th>${message:fechcompra-label}</th>
+		    <th>${message:titulopelicula-label}</th>		    
+		    <th>${message:nombrecine-label}</th>
+		    <th>${message:numentradas-label}</th>
+		    <th>${message:fechorasesion-label}</th>
+		    <th>${message:idCompra-label}</th>
+		</tr>
+
+            </thead>
+            <tbody>	
+		<tr t:type="Loop" t:source="compras" t:value="compra">
+			<td><t:output t:value="compra.fechaCompra.time" t:format="dateFormat"/></td>
+			<td>${compra.sesion.pelicula.titulo}</td>
+			<td>${compra.sesion.sala.cine.nCine}</td>
+			<td>${compra.numLocalidades}</td>
+			<td><t:output t:value="compra.sesion.horayFecha.time" t:format="dateFormat"/></td>
+			<td id="idCompra">${compra.idCompra}</td> 
+		</tr>
+		 </tbody>	
+		</table>
+
+		<!-- "Previous" and "Next" links. -->
+		<div class="previousNextLinks">
+		<span class="previousLink">
+		<t:if test="previousLinkContext">
+			<a class="btn btn-default" href="#" t:type="PageLink" t:page="compra/MostrarCompras"
+		    	t:context="previousLinkContext">
+		    	${message:link-previous}
+		    </a>
+		</t:if>
+		</span>
+
+		<span class="nextLink">
+		<t:if test="nextLinkContext">
+			<a class="btn btn-default" href="#" t:type="PageLink" t:page="compra/MostrarCompras"
+		    	t:context="nextLinkContext">
+		    	${message:link-next}
+		    </a>
+		</t:if>
+		</span>
+		</div>
+	 <p:else>
+		<p>${message:noCompras}.</p>
+	</p:else>
+ </t:if> 
+
+
+</html>

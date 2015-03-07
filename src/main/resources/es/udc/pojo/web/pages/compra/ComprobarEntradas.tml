@@ -1,0 +1,102 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:pageTitle="title">
+
+<form role="form" t:type="Form" t:id="findComprasForm">
+	<h3>${message:compras_finder}</h3>
+	<t:errors />
+	<div class="field">
+		<span class="entry"> <input t:type="TextField" t:id="idCompra"
+			t:validate="required, min=0" size="16" maxlength="16"
+			placeholder="${message:compra}" />
+		</span>
+	</div>
+
+	<div class="button">
+		<input t:id="findCompra" class="btn btn-primary btn-compra"
+			t:type="submit" value="${message:find}" />
+
+		<!-- El boton debe mostrarse si todavía no ha comenzado la sesion
+			y el usuario no ha recogido las entradas -->
+		<t:if test="compra">
+			<t:if test="!compra.entregada">
+				<t:if test="!sesionPasada">
+					<t:actionlink class="btn btn-success btn-compra" t:id="entregar">
+						${message:entregar}
+					</t:actionlink>
+				</t:if>
+			</t:if>
+		</t:if>
+	</div>
+</form>
+
+
+<t:if test="compra">
+	<table class="table table-bordered compra-table">
+		<tr>
+			<th>${message:user-label}</th>
+			<td>${compra.userprofile.firstName}
+				${compra.userprofile.lastName}</td>
+		</tr>
+
+		<tr>
+			<th>${message:numtarjeta-label}</th>
+			<td>${compra.numTarjeta}</td>
+		</tr>
+
+		<tr>
+			<th>${message:fecha-expiracion-label}</th>
+			<td><t:output value="compra.fExpiracion.Time"
+					format="dateFormat" /></td>
+		</tr>
+
+	</table>
+
+	<table class="table table-bordered compra-table">
+		<tr>
+			<th>${message:entregada-label}</th>
+			<t:if test="compra.entregada">
+				<td>${message:si-label}</td>
+			<p:else><td>${message:no-label}</td>
+			</p:else>
+			</t:if>
+		</tr>
+
+		<tr>
+			<th>${message:numLocalidades-label}</th>
+			<td>${compra.numLocalidades}</td>
+		</tr>
+
+		<tr>
+			<th>${message:fechaCompra-label}</th>
+			<td><t:output value="compra.fechaCompra.Time"
+					format="dateFormat" /></td>
+		</tr>
+
+		<tr>
+			<th>${message:titulopel-label}</th>
+			<td>${compra.sesion.pelicula.titulo}</td>
+		</tr>
+
+		<tr>
+			<th>${message:cineYSala-label}</th>
+			<td>${compra.sesion.sala.cine.nCine} -
+				${compra.sesion.sala.nSala}</td>
+		</tr>
+
+		<tr>
+			<th>${message:hora-sesion}</th>
+			<td><t:output value="compra.sesion.horayFecha.time"
+					format="timeFormat" /> - <t:output
+					value="compra.sesion.horayFecha.time" format="dateFormat" /></td>
+		</tr>
+	</table>
+
+	<p:else>
+		<t:if test="idCompra">
+			<h4>${message:compraNotFound}</h4>
+		</t:if>
+	</p:else>
+</t:if>
+
+</html>
+
